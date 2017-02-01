@@ -17,7 +17,7 @@ rules(1).before = 'F';
 rules(1).after = 'F[-F]F[+F]F';
 delta = 25;
 
-Lsystem(rules, delta, len, axiom, nReps)
+% Lsystem(rules, delta, len, axiom, nReps)
 
 % Square-spikes FIGURE 6.9
 axiom = 'F18-F18-F18-F';
@@ -25,4 +25,16 @@ rules(1).before = 'F';
 rules(1).after = 'F17-F34+F17-F';
 delta = 5;
 
-Lsystem(rules, delta, len, axiom, nReps)
+% Lsystem(rules, delta, len, axiom, nReps)
+
+
+
+
+% Snowflake (unfinished)
+axiom = '[F]-[F]-[F]-[F]-[F]-[F]';
+rules(1).before = 'F';
+rules(1).after = 'F[-FFF][+FFF]F[-FF][+FF]F[-F][+F]F';
+delta = 60;
+
+Lsystem(rules, delta, len, axiom, 2)
+
