@@ -6,8 +6,9 @@
 
 function [lsys] = LsysExpand(rules, axiom, nReps)
     lsys = axiom;
+    cellRules = struct2cell(rules');
     for i=1:nReps
         % One-liner to perform a regex replacement on the entire string
-        lsys = regexprep(lsys,rules.before,rules.after);
+        lsys = regexprep(lsys,cellRules(1,:),cellRules(2,:));
     end
 end
