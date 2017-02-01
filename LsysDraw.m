@@ -1,8 +1,15 @@
+% THIS CODE WAS ORIGINALLY DOWNLOADED FROM THE FOLLOWING WEB SITE
+% http://courses.cit.cornell.edu/bionb441/LSystem/index.html
+% Modified by David Cohen & Paul D'Amora
+% CS 302: Homework1A
+% February 2, 2017
+
 function [] = LsysDraw(delta, lsys, len)
+    figure;
     % Now draw the string as turtle graphics
-    %Upper case (e.g. F or G) causes a line to be drawn in the current direction of the turtle
-    %Lower case causes a move with no draw
-    %angle +operator means turn left; -operator means turn right
+    % Upper case (e.g. F or G) causes a line to be drawn in the current direction of the turtle
+    % Lower case causes a move with no draw
+    % angle +operator means turn left; -operator means turn right
 
     % Init the turtle
     T.x = 0;
@@ -14,12 +21,10 @@ function [] = LsysDraw(delta, lsys, len)
     % Init the turtle stack
     stkPtr = 1;
     
-    % Preallocate the stack
-    stack = zeros(1, 100);
-    
     % Initliaze multiplier variables
     multiplier = 1;
     number = '';
+    stack = struct();
     
     hold on
     
@@ -39,38 +44,33 @@ function [] = LsysDraw(delta, lsys, len)
             continue
         end
      
+        % Change variables appropriately for each char
         switch cmdT
-        case 'F'
-            newxT = T.x + len.F*cos(T.angle);
-            newyT = T.y + len.F*sin(T.angle);
-            line([T.y newyT], [T.x newxT],'color',[.3 .3 0], 'linewidth',2);
-            T.x = newxT;
-            T.y = newyT;
-        case 'G'
-            newxT = T.x + len.G*cos(T.angle);
-            newyT = T.y + len.G*sin(T.angle);
-            line([T.y newyT], [T.x newxT],'color','g', 'linewidth',2);
-            T.x = newxT;
-            T.y = newyT;
-        case '+'
-            T.angle = T.angle + T.dangle*multiplier;
-            multiplier = 1;
-        case '-'
-            T.angle = T.angle - T.dangle*multiplier;
-            multiplier = 1;
-        case '[' %push the stack
-            stack(stkPtr).T.x = T.x ;
-            stack(stkPtr).T.y = T.y ;
-            stack(stkPtr).T.angle = T.angle ;
-            stkPtr = stkPtr +1 ;
-        case ']' %pop the stack
-            stkPtr = stkPtr -1 ;
-            T.x = stack(stkPtr).T.x ;
-            T.y = stack(stkPtr).T.y ;
-            T.angle = stack(stkPtr).T.angle ;
-        otherwise
-            disp('error')
-            return
+            case {'F','G'}
+                newT.x = T.x + len.F*cos(T.angle);
+                newT.y = T.y + len.F*sin(T.angle);
+                line([T.y newT.y], [T.x newT.x],'color','k', 'linewidth',2);
+                T.x = newT.x;
+                T.y = newT.y;
+            case '+'
+                T.angle = T.angle + T.dangle*multiplier;
+                multiplier = 1;
+            case '-'
+                T.angle = T.angle - T.dangle*multiplier;
+                multiplier = 1;
+            case '[' %push the stack
+                stack(stkPtr).T.x = T.x ;
+                stack(stkPtr).T.y = T.y ;
+                stack(stkPtr).T.angle = T.angle ;
+                stkPtr = stkPtr +1 ;
+            case ']' %pop the stack
+                stkPtr = stkPtr -1 ;
+                T.x = stack(stkPtr).T.x ;
+                T.y = stack(stkPtr).T.y ;
+                T.angle = stack(stkPtr).T.angle ;
+            otherwise
+                disp('Error: invalid character')
+                return
         end
     end
 

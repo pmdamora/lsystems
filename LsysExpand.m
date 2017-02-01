@@ -1,24 +1,13 @@
-function [lsys] = LsysExpand(rule, axiom, nReps)
+% THIS CODE WAS ORIGINALLY DOWNLOADED FROM THE FOLLOWING WEB SITE
+% http://courses.cit.cornell.edu/bionb441/LSystem/index.html
+% Modified by David Cohen & Paul D'Amora
+% CS 302: Homework1A
+% February 2, 2017
+
+function [lsys] = LsysExpand(rules, axiom, nReps)
     lsys = axiom;
-    nRules = length(rule);
-  
     for i=1:nReps
-        % One character/cell, with indexes the same as original lsys string
-        lsysINcells = cellstr(lsys');
-        for j=1:nRules
-            % The indexes of each 'before' string
-            hit = strfind(lsys, rule(j).before);
-            if (length(hit)>=1)
-                for k=hit
-                    lsysINcells{k} = rule(j).after;
-                end
-            end
-        end
-        % Now convert individual cells back to a string
-        lsys=[];
-        for j=1:length(lsysINcells)
-            lsys = [lsys, lsysINcells{j}];
-        end
+        % One-liner to perform a regex replacement on the entire string
+        lsys = regexprep(lsys,rules.before,rules.after);
     end
 end
-
