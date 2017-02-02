@@ -1,10 +1,23 @@
-% THIS CODE WAS ORIGINALLY DOWNLOADED FROM THE FOLLOWING WEB SITE
-% http://courses.cit.cornell.edu/bionb441/LSystem/index.html
+function LsysDraw(delta, lsys, len)
+% LsysDraw: Draw an already expanded L-system string using Turtle Graphics
+% function LsysDraw(delta, lsys, len)
+%
+% INPUTS:
+% delta == scalar incremental angle size in Degrees
+% lsys == string containing Turtle Graphics instructions
+% len == base length for terminal symbols (len must be <= 1)
+% (if scalar, applies to all; if vector, one element per unique terminal symbol)
+%
+% OUTPUTS:
+% no output variables
+% direct output of 2D plot of string interpreted with Turtle Graphics
+%
+% Sample test call: LsysDraw('FF[-F[-G]+G]+F[-G]+G',27.5,1)
+
+% Original code at http://courses.cit.cornell.edu/bionb441/LSystem/index.html
 % Modified by David Cohen & Paul D'Amora
 % CS 302: Homework1A
 % February 2, 2017
-
-function [] = LsysDraw(delta, lsys, len)
     figure;
     % Now draw the string as turtle graphics
     % Upper case (e.g. F or G) causes a line to be drawn in the current direction of the turtle
@@ -16,8 +29,10 @@ function [] = LsysDraw(delta, lsys, len)
     T.y = 0;
     T.angle = 0;
     T.dangle = delta*pi/180; %convert degrees to radians
-    
-    
+    if ~isstruct(len)
+        len = struct('F',len,'G',len);
+    end
+     
     % Init the turtle stack
     stkPtr = 1;
     

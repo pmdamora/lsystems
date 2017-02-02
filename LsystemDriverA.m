@@ -1,9 +1,9 @@
-% THIS CODE WAS ORIGINALLY DOWNLOADED FROM THE FOLLOWING WEB SITE
-% http://courses.cit.cornell.edu/bionb441/LSystem/index.html
+% LsystemDriverA: define inputs to and call the Lsystem function
+
+% Original code at http://courses.cit.cornell.edu/bionb441/LSystem/index.html
 % Modified by David Cohen & Paul D'Amora
 % CS 302: Homework1A
-% February 2, 2017
-clc;
+% February 2, 2017clc;
 clear;
 
 % Define constants
@@ -36,6 +36,3 @@ rules(1).after = 'F[-FF][+FF]F[-F][+F]F[-F][+F]F';
 delta = 60;
 
 Lsystem(rules, delta, len, axiom, nReps);
-
-
-
